@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import ReactModal from 'react-modal'
 import { FiX } from 'react-icons/fi'
 import api from '../../services/api'
@@ -8,11 +8,19 @@ import Textarea from '../shared/Textarea'
 
 import { Container } from './styles'
 
-const AddPointModal = ({ isOpen, onRequestClose, storeId, handleRefresh }) => {
+const AddPointModal = ({ isOpen, onRequestClose, storeId, handleRefresh, editingPoint }) => {
 	const [title, setTitle] = useState('')
 	const [description, setDescription] = useState('')
 	const [files, setFiles] = useState([])
 	const [isLoading, setIsLoading] = useState(false)
+
+	useEffect(() => {
+		if (editingPoint) {
+			setTitle(editingPoint.title)
+			setDescription(editingPoint.description)
+			setFiles(editingPoint.images)
+		}
+	}, [editingPoint])
 
 	const handleFileChange = useCallback(async (event) => {
 		setIsLoading(true)
@@ -36,7 +44,11 @@ const AddPointModal = ({ isOpen, onRequestClose, storeId, handleRefresh }) => {
 			}
 
 			try {
-				const { data } = await api.post(`stores/${storeId}/points`, sendData)
+				const { data } = await api({
+					method: editingPoint ? 'put' : 'post',
+					url: `stores/${storeId}/points${editingPoint ? `/${editingPoint._id}` : ''}`,
+					data: sendData
+				})
 				handleRefresh()
 				onRequestClose()
 			} catch (e) {
