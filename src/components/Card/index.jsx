@@ -1,21 +1,48 @@
 import styled from 'styled-components';
 
+const StyledCard = styled.div`
+`
+
+const CardListContainer = styled.div`
+`
+
+const CardList = styled.ul`
+`
+
+const CardListItem = styled.li`
+`
+
+const ItemText = styled.div`
+`
+const ItemTitle = styled.h2`
+`
+const Description = styled.p`
+`
+const Image = styled.img`
+`
+const Span = styled.span`
+`
+
+const SelectContainer = styled.div`
+
+`
+
 const Card = () => {
   return (
     <StyledCard>
-      <div className="card__list-wrapper">
-        <ul className="card__list">
-          <li className="card__item">
-            <div className="item__text">
-              <h2>Minicart quebrado</h2>
-              <p>
+      <CardListContainer>
+        <CardList>
+          <CardListItem>
+            <ItemText>
+              <ItemTitle>Minicart quebrado</ItemTitle>
+              <Description>
                 O MINICART NUM FUNUNCIA <strong>+ Ver mais.</strong>
-              </p>
-              <p>Arruma aí meo</p>
-              <img src="" alt="" />
-            </div>
-            <span>Status: </span>
-            <div className="select">
+              </Description>
+              <Description>Arruma aí meo</Description>
+              <Image />
+            </ItemText>
+            <Span>Status: </Span>
+            <SelectContainer>
               <select>
                 <option value="0">Selecionar</option>
                 <option value="1">Feito</option>
@@ -23,10 +50,10 @@ const Card = () => {
                 <option value="3">Aguardando Info</option>
                 <option value="4">Impossibilitado</option>
               </select>
-            </div>
-          </li>
-        </ul>
-      </div>
+            </SelectContainer>
+          </CardListItem>
+        </CardList>
+      </CardListContainer>
     </StyledCard>
   );
 };
