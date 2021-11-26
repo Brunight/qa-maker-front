@@ -23,9 +23,16 @@ const Store = () => {
 		}
 	}, [navigate, params])
 
-	function handleSelectChange(index){
-		
+	const statuses = ['none', 'done', 'in-progress', 'waiting-info', 'unable']
+	async function handleSelectChange(index, pointId) {
+		try {
+			const sendData = { status: statuses[index] }
+			const { data } = await api.put(`/stores/${params.storeId}/points/${pointId}`)
+		} catch (err) {
+			alert('Ocorreu um erro!')
+		}
 	}
+
 	useEffect(() => {
 		handleRefresh()
 	}, [handleRefresh])
@@ -59,13 +66,14 @@ const Store = () => {
 								<select
 									onChange={(e) => {
 										console.log(e.target.selectedOptions[0].value)
+										handleSelectChange(e.target.selectedOptions[0].value, point.id)
 									}}
 								>
-									<option value="0">Selecionar</option>
-									<option value="1">Feito</option>
-									<option value="2">Em Progresso</option>
-									<option value="3">Aguardando Info</option>
-									<option value="4">Impossibilitado</option>
+									<option value="0" selected={statuses.includes(point.status)}>Selecionar</option>
+									<option value="1" selected={statuses.includes(point.status)}>Feito</option>
+									<option value="2" selected={statuses.includes(point.status)}>Em Progresso</option>
+									<option value="3" selected={statuses.includes(point.status)}>Aguardando Info</option>
+									<option value="4" selected={statuses.includes(point.status)}>Impossibilitado</option>
 								</select>
 							</div>
 							<div className="icons">
