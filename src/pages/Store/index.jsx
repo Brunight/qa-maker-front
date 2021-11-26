@@ -54,6 +54,7 @@ const Store = () => {
 	}, [])
 
 	const handleCloseModal = useCallback(() => {
+		setEditingPoint(null)
 		setIsModalOpen(false)
 	}, [])
 
