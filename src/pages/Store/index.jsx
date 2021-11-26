@@ -25,6 +25,10 @@ const Store = () => {
 		run()
 	}, [navigate, params])
 
+	function handleSelectChange(index){
+		
+	}
+
 	return (
 		<Container>
 			<div className="container-top">
